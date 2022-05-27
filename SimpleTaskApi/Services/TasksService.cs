@@ -2,16 +2,19 @@ using Microsoft.EntityFrameworkCore;
 using SimpleTaskApi.DAL;
 using SimpleTaskApi.DAL.Models;
 using SimpleTaskApi.Interfaces;
+using Status = SimpleTaskApi.Domain.Status;
 
 namespace SimpleTaskApi.Services;
 
 public class TasksService : ITasksService
 {
     private readonly TasksContext _context;
+    private readonly IQuartzService _quartzService;
 
-    public TasksService(TasksContext context)
+    public TasksService(TasksContext context, IQuartzService quartzService)
     {
         _context = context;
+        _quartzService = quartzService;
     }
     
     public async Task<string> Get(Guid id)
@@ -28,11 +31,13 @@ public class TasksService : ITasksService
         {
             Id = Guid.NewGuid(),
             LastModifiedDate = DateTime.Now,
-            StatusId = (int)Domain.Status.New
+            StatusId = (int)Status.New
         };
 
         await _context.Tasks.AddAsync(newTask);
         await _context.SaveChangesAsync();
+
+        _quartzService.ScheduleTaskStatusChange(newTask.Id, (int)Status.Running);
 
         return newTask.Id;
     }

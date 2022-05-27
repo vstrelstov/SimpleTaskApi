@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Quartz;
 using SimpleTaskApi.DAL;
 using SimpleTaskApi.Interfaces;
+using SimpleTaskApi.Jobs;
 using SimpleTaskApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory());
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+builder.Services.AddTransient<SetTaskStatusJob>();
+builder.Services.AddSingleton<IQuartzService, QuartzService>();
 
 var app = builder.Build();
 
