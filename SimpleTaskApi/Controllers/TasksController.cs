@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SimpleTaskApi.Interfaces;
 
 namespace SimpleTaskApi.Controllers;
 
@@ -6,31 +7,31 @@ namespace SimpleTaskApi.Controllers;
 [Route("task")]
 public class TasksController : ControllerBase
 {
-    private readonly ILogger<TasksController> _logger;
+    private readonly ITasksService _tasksService;
 
-    public TasksController(ILogger<TasksController> logger)
+    public TasksController(ITasksService tasksService)
     {
-        _logger = logger;
+        _tasksService = tasksService;
     }
 
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Get([FromRoute] string id)
+    public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        if (!Guid.TryParse(id, out var guidId))
-        {
-            return BadRequest("Input id was not in correct format");
-        }
-        
-        return Ok();
+        string taskStatus = await _tasksService.Get(id);
+
+        return string.IsNullOrWhiteSpace(taskStatus)
+            ? NotFound("The requested task cannot be found")
+            : Ok(taskStatus);
     }
     
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     public async Task<IActionResult> Create()
     {
-        return Accepted("8FA0CDC1-EA81-4E61-874D-584F368E5E69");
+        var createdTaskId = await _tasksService.Create();
+        return Accepted(createdTaskId);
     }
 }

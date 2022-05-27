@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleTaskApi.DAL;
+using SimpleTaskApi.Interfaces;
+using SimpleTaskApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<TasksContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<ITasksService, TasksService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,5 +32,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();
