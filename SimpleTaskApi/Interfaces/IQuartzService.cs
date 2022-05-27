@@ -2,5 +2,5 @@ namespace SimpleTaskApi.Interfaces;
 
 public interface IQuartzService
 {
-    Task ScheduleTaskStatusChange(Guid taskId, int statusId);
+    Task ScheduleTaskStatusChange(Guid taskId);
 }

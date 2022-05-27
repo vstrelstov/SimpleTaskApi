@@ -37,7 +37,7 @@ public class TasksService : ITasksService
         await _context.Tasks.AddAsync(newTask);
         await _context.SaveChangesAsync();
 
-        _quartzService.ScheduleTaskStatusChange(newTask.Id, (int)Status.Running);
+        _quartzService.ScheduleTaskStatusChange(newTask.Id);
 
         return newTask.Id;
     }
