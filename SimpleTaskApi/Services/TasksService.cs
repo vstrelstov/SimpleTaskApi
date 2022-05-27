@@ -8,7 +8,7 @@ namespace SimpleTaskApi.Services;
 public class TasksService : ITasksService
 {
     private readonly TasksContext _context;
-    
+
     public TasksService(TasksContext context)
     {
         _context = context;
@@ -16,7 +16,7 @@ public class TasksService : ITasksService
     
     public async Task<string> Get(Guid id)
     {
-        var task = await _context.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+        var task = await _context.Tasks.Include(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
         return task == null
             ? string.Empty
             : task.Status.Name;

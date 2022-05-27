@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Quartz;
 using SimpleTaskApi.DAL;
 using SimpleTaskApi.Interfaces;
 using SimpleTaskApi.Services;
@@ -17,6 +18,9 @@ builder.Services.AddScoped<ITasksService, TasksService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddQuartz(q => q.UseMicrosoftDependencyInjectionJobFactory());
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
 var app = builder.Build();
 
