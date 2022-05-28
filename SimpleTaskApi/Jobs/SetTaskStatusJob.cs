@@ -21,15 +21,15 @@ public class SetTaskStatusJob : IJob
         try
         {
             var dataMap = context.MergedJobDataMap;
-            Guid taskId = dataMap.GetGuidValue("taskId");
+            var taskId = dataMap.GetGuidValue("taskId");
             using var scope = _serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetService<TasksContext>();
 
             var task = await dbContext.Tasks.FirstAsync(x => x.Id == taskId);
-            task.LastModifiedDate = DateTime.Now;
+            task.LastModifiedDate = DateTime.UtcNow;
             task.StatusId = (Status)task.StatusId switch
             {
-                Status.New => (int)Status.Running,
+                Status.Created => (int)Status.Running,
                 Status.Running => (int)Status.Finished,
                 _ => task.StatusId
             };

@@ -38,9 +38,9 @@ public class SetTaskStatusJobListener : IJobListener
             var taskId = GetTaskId(context);
             context.MergedJobDataMap.Clear();
 
-            ITrigger triggerStartJob = TriggerBuilder.Create()
+            var triggerStartJob = TriggerBuilder.Create()
                 .WithIdentity($"Trigger setting Completed status for task {taskId}")
-                .StartAt(DateTimeOffset.Now.AddMinutes(2))
+                .StartAt(DateTime.UtcNow.AddMinutes(2))
                 .UsingJobData("taskId", taskId)
                 .UsingJobData("statusId", (int)Status.Finished)
                 .WithSimpleSchedule(x => x.Build())

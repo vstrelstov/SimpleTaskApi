@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using SimpleTaskApi.DAL.Models;
+using SimpleTaskApi.DAL.Configuration;
+using SimpleTaskApi.DAL.Entities;
 
 namespace SimpleTaskApi.DAL;
 
@@ -14,22 +15,6 @@ public class TasksContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<Status>().HasData(
-            new Status
-            {
-                Id = 1,
-                Name = "Created"
-            },
-            new Status
-            {
-                Id = 2,
-                Name = "Running"
-            },
-            new Status
-            {
-                Id = 3,
-                Name = "Finished"
-            });
+        modelBuilder.ApplyConfiguration(new StatusConfiguration());
     }
 }

@@ -20,10 +20,10 @@ public class QuartzService : IQuartzService
     
     public async Task ScheduleTaskStatusChange(Guid taskId)
     {
-        IJobDetail startJob = JobBuilder.Create<SetTaskStatusJob>()
+        var startJob = JobBuilder.Create<SetTaskStatusJob>()
             .WithIdentity($"Setting status for task {taskId}")
             .Build();
-        ITrigger triggerStartJob = TriggerBuilder.Create()
+        var triggerStartJob = TriggerBuilder.Create()
             .WithIdentity($"Trigger setting status for task {taskId}")
             .UsingJobData("taskId", taskId)
             .UsingJobData("statusId", (int)Status.Running)

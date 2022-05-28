@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SimpleTaskApi.DAL.Models;
+namespace SimpleTaskApi.DAL.Entities;
 
 [Table("Task")]
 public class SimpleTask

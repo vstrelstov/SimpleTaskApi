@@ -1,4 +1,4 @@
-namespace SimpleTaskApi.DAL.Models;
+namespace SimpleTaskApi.DAL.Entities;
 
 public class Status
 {

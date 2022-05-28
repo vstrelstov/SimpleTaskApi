@@ -20,7 +20,7 @@ public class TasksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Get([FromRoute] Guid id)
     {
-        string taskStatus = await _tasksService.Get(id);
+        var taskStatus = await _tasksService.Get(id);
 
         return string.IsNullOrWhiteSpace(taskStatus)
             ? NotFound("The requested task cannot be found")

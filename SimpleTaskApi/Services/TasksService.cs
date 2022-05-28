@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleTaskApi.DAL;
-using SimpleTaskApi.DAL.Models;
+using SimpleTaskApi.DAL.Entities;
 using SimpleTaskApi.Interfaces;
 using Status = SimpleTaskApi.Domain.Status;
 
@@ -30,8 +30,8 @@ public class TasksService : ITasksService
         var newTask = new SimpleTask
         {
             Id = Guid.NewGuid(),
-            LastModifiedDate = DateTime.Now,
-            StatusId = (int)Status.New
+            LastModifiedDate = DateTime.UtcNow,
+            StatusId = (int)Status.Created
         };
 
         await _context.Tasks.AddAsync(newTask);
