@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SimpleTaskApi.DAL;
 using SimpleTaskApi.DAL.Entities;
 using SimpleTaskApi.Interfaces;
-using Status = SimpleTaskApi.Domain.Status;
+using Status = SimpleTaskApi.Enums.Status;
 
 namespace SimpleTaskApi.Services;
 

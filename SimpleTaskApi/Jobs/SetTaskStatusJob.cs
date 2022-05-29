@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using SimpleTaskApi.DAL;
-using SimpleTaskApi.Domain;
+using SimpleTaskApi.Enums;
 
 namespace SimpleTaskApi.Jobs;
 

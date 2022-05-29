@@ -1,5 +1,5 @@
 using Quartz;
-using SimpleTaskApi.Domain;
+using SimpleTaskApi.Enums;
 
 namespace SimpleTaskApi.Jobs;
 

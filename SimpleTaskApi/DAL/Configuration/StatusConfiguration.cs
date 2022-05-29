@@ -11,18 +11,18 @@ public class StatusConfiguration : IEntityTypeConfiguration<Status>
         builder.HasData(
             new Status
             {
-                Id = (int)Domain.Status.Created,
-                Name = Enum.GetName(typeof(Domain.Status), (int)Domain.Status.Created)
+                Id = (int)Enums.Status.Created,
+                Name = Enum.GetName(typeof(Enums.Status), (int)Enums.Status.Created)
             },
             new Status
             {
-                Id = (int)Domain.Status.Running,
-                Name = Enum.GetName(typeof(Domain.Status), (int)Domain.Status.Running)
+                Id = (int)Enums.Status.Running,
+                Name = Enum.GetName(typeof(Enums.Status), (int)Enums.Status.Running)
             },
             new Status
             {
-                Id = (int)Domain.Status.Finished,
-                Name = Enum.GetName(typeof(Domain.Status), (int)Domain.Status.Finished)
+                Id = (int)Enums.Status.Finished,
+                Name = Enum.GetName(typeof(Enums.Status), (int)Enums.Status.Finished)
             });
     }
 }

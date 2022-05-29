@@ -1,6 +1,6 @@
 using Quartz;
 using Quartz.Impl;
-using SimpleTaskApi.Domain;
+using SimpleTaskApi.Enums;
 using SimpleTaskApi.Interfaces;
 using SimpleTaskApi.Jobs;
 

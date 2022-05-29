@@ -1,4 +1,4 @@
-namespace SimpleTaskApi.Domain;
+namespace SimpleTaskApi.Enums;
 
 public enum Status
 {
